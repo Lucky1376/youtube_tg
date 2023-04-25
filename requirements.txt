@@ -1,0 +1,6 @@
+pyrogram
+ffmpeg
+pytube
+youtube-search-python
+requests
+pillow
