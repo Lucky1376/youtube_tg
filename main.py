@@ -47,13 +47,10 @@ def txt(client, message):
 		a = client.send_message(id, "🕒**Создаю объект видео...**")
 
 		try:
-			while True:
-				try:
-					yt = YouTube(text)
-					streams = yt.streams
-					break
-				except:
-					continue
+			proxy = {'http': 'http://pr0xyShopTG:proxysoxybot@45.81.137.174:5500'}
+
+			yt = YouTube(text)
+			streams = yt.streams
 
 			a.edit("✅**Объект создан**\n🕒**Скачиваю обложку**")
 
@@ -142,7 +139,8 @@ def txt(client, message):
 			client.send_photo(id, f"{file_id}.jpg", caption=itog_text, reply_markup=kb)
 			a.delete()
 			os.remove(f"{file_id}.jpg")
-		except:
+		except Exception as e:
+			print(e)
 			a.edit("❌**Произошел сбой, попробуйте снова**")
 
 		th_data.remove(id)
@@ -212,15 +210,10 @@ def callbackk(client, message):
 					time.sleep(e.value)
 					audio_info[id]["m"].edit(f"🕒**Скачиваю**\n{bar_text} ~`{per}`**%**")
 
-			while True:
-				try:
-					yt = YouTube(video_data[file_id]["url"], on_progress_callback=yt_progress)
-					stream = yt.streams.get_by_itag(itag)
-					audio_info[id] = {"size": stream.filesize,
-									   "m": a}
-					break
-				except:
-					continue
+			yt = YouTube(video_data[file_id]["url"], on_progress_callback=yt_progress)
+			stream = yt.streams.get_by_itag(itag)
+			audio_info[id] = {"size": stream.filesize,
+							   "m": a}
 
 
 			if audio_info[id]["size"] > 31457280:
@@ -307,14 +300,9 @@ def callbackk(client, message):
 				except FloodWait as e:
 					time.sleep(e.value)
 
-			while True:
-				try:
-					yt = YouTube(video_data[file_id]["url"], on_progress_callback=yt_progress)
-					stream_vd = yt.streams.get_by_itag(itag_vd)
-					stream_au = yt.streams.get_by_itag(itag_au)
-					break
-				except:
-					continue
+			yt = YouTube(video_data[file_id]["url"], on_progress_callback=yt_progress)
+			stream_vd = yt.streams.get_by_itag(itag_vd)
+			stream_au = yt.streams.get_by_itag(itag_au)
 
 			video_info[id] = {"au": {"size": stream_au.filesize,
 									 "symb": "🎧"},
